@@ -9,7 +9,7 @@ const paths = {
 };
 
 module.exports = {
-    entry: path.join(paths.JS, 'qaTool.js'),
+    entry: path.join(paths.JS, 'qaMain.js'),
     output: {
         path: paths.DIST,
         filename: 'app.bundle.js'

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import '../css/style.css';
-import FillQuestionAnswer from './fillQuestionAnswer';
-import ListQuestionAnswer from './listQuestionAnswer';
+import { formTootipHeader, 
+        listTootipHeader } from './constants';
+import Header from './header';
+import QaForm from './qaForm';
+import QaList from './qaList';
 
 const sortList = items => items.sort((a, b) => (
     a.question.toUpperCase() < b.question.toUpperCase() && -1 ||
@@ -12,7 +15,7 @@ const sortList = items => items.sort((a, b) => (
 
 const nextId = items => items.reduce(((max, cur) => max < cur.id ? cur.id : max), 0) + 1;
 
-export default class QaTool extends Component {
+export default class QaMain extends Component {
     state = {
         question: '',
         answer: '',
@@ -82,20 +85,25 @@ export default class QaTool extends Component {
     render() {
         const { question, answer } = this.state;
         return (
-            <div>
-                <ListQuestionAnswer items={this.state.qaList} 
-                    sortQuestions={this.sortQAList}
-                    removeQuestions={this.clearQAList}
-                    handleDisplayAnswer={this.displayAnswer}/> 
-                <FillQuestionAnswer 
-                    question={question}
-                    answer={answer}
-                    onChangeQuestion={this.handleQuestionChange}
-                    onChangeAnswer={this.handleAnswerChange}
-                    saveQuestion={this.saveQuestion} />
+            <div className="container">
+                <Header totalNumber={this.state.qaList.length}/>
+                <div className="formContainer">
+                    <QaList items={this.state.qaList} 
+                        sortQuestions={this.sortQAList}
+                        removeQuestions={this.clearQAList}
+                        handleDisplayAnswer={this.displayAnswer} 
+                        tooltip={formTootipHeader} /> 
+                    <QaForm 
+                        question={question}
+                        answer={answer}
+                        onChangeQuestion={this.handleQuestionChange}
+                        onChangeAnswer={this.handleAnswerChange}
+                        saveQuestion={this.saveQuestion} 
+                        tooltip={listTootipHeader}/>
+                </div>
             </div>
         );    
     }
 }
 
-render(<QaTool />, document.getElementById('app'));
+render(<QaMain />, document.getElementById('app'));

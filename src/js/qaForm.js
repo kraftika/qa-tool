@@ -1,28 +1,25 @@
 import React from 'react';
 
 export default (props) => (
-    <div>
-        <h3>Create a new question</h3>
+    <div className="questionForm">
+        <h3 tooltip={props.tooltip} tooltip-position="bottom">Create a new question</h3>
         <form name="saveQuestion" onSubmit={props.saveQuestion}>
-            <div>
-                <label htmlFor="question">Question</label>
+            <div className="questionInputs">
                 <input id="question"
+                    type="text"
                     value={props.question}
                     required
                     onChange={props.onChangeQuestion}
-                    placeholder="Type a question..." /> 
-            </div>
-            <div>
-                <label htmlFor="answer">Answer</label>
+                    placeholder="Question" /> 
                 <textarea id="answer"
-                        value={props.answer}
+                        value={props.answer}    
                         required
                         onChange={props.onChangeAnswer}
-                        placeholder="Type an answer...">
+                        placeholder="Answer">
                 </textarea> 
             </div>
             <div>
-                <button type="submit">Create question</button>
+                <button type="submit" className="btn create">Create question</button>
             </div>
         </form>
     </div>
